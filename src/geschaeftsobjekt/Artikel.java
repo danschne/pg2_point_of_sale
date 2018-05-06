@@ -1,21 +1,18 @@
 package geschaeftsobjekt;
 
-public class Artikel {
+public class Artikel extends Produkt {
   /* Attribute */
-  private int nr;
-  private String bezeichnung;
   private String kurzbezeichnung;
   private int lagerbestand;
 
   /* Konstruktoren */
-  public Artikel(int nr, String bezeichnung) {
-    this.nr = nr;
-    this.bezeichnung = bezeichnung;
-    kurzbezeichnung = erzeugeKurzbezeichnung(this.nr, this.bezeichnung);
+  public Artikel(int nr, String bezeichnung, float preis) {
+    super(nr, bezeichnung, preis);
+    kurzbezeichnung = erzeugeKurzbezeichnung(getNr(), getBezeichnung());
   }
 
-  public Artikel(int nr, String bezeichnung, int lagerbestand) {
-    this(nr, bezeichnung);
+  public Artikel(int nr, String bezeichnung, float preis, int lagerbestand) {
+    this(nr, bezeichnung, preis);
     this.lagerbestand = lagerbestand;
   }
 
@@ -80,21 +77,13 @@ public class Artikel {
 
   public String toString() {
     return (
-        "" + nr + ", " + kurzbezeichnung + ", " + bezeichnung + ", " + lagerbestand + " auf Lager"
+        "" + getNr() + ", " + kurzbezeichnung + ", " + getBezeichnung() + ", " + lagerbestand + " auf Lager"
     );
   }
 
-  public int getNr() {
-    return nr;
-  }
-
   public void setBezeichnung(String bezeichnung) {
-    this.bezeichnung = bezeichnung;
-    kurzbezeichnung = erzeugeKurzbezeichnung(this.nr, this.bezeichnung);
-  }
-
-  public String getBezeichnung() {
-    return bezeichnung;
+    setBezeichnung(bezeichnung);
+    kurzbezeichnung = erzeugeKurzbezeichnung(this.getNr(), getBezeichnung());
   }
 
   public String getKurzbezeichnung() {
