@@ -82,8 +82,8 @@ public class Artikel extends Produkt {
   }
 
   public void setBezeichnung(String bezeichnung) {
-    setBezeichnung(bezeichnung);
-    kurzbezeichnung = erzeugeKurzbezeichnung(this.getNr(), getBezeichnung());
+    super.setBezeichnung(bezeichnung);
+    kurzbezeichnung = erzeugeKurzbezeichnung(getNr(), getBezeichnung());
   }
 
   public String getKurzbezeichnung() {
