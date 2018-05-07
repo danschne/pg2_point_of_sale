@@ -3,10 +3,10 @@ package geschaeftsobjekt;
 public abstract class Produkt extends Geschaeftsobjekt implements Comparable<Produkt> {
   /* Attribute */
   private String bezeichnung;
-  private float preis;
+  private Double preis;
 
   /* Konstruktoren */
-  public Produkt(int nr, String bezeichnung, float preis) {
+  public Produkt(int nr, String bezeichnung, double preis) {
     super(nr);
     this.bezeichnung = bezeichnung;
     this.preis = preis;
@@ -15,7 +15,22 @@ public abstract class Produkt extends Geschaeftsobjekt implements Comparable<Pro
   /* Methoden */
   @Override
   public int compareTo(Produkt pOther) {
-    return 0;
+    boolean thisIstArtikel = this instanceof Artikel;
+    boolean pOtherIstArtikel = pOther instanceof Artikel;
+
+    if (thisIstArtikel && !pOtherIstArtikel) {
+      return 1;
+    } else if (!thisIstArtikel && pOtherIstArtikel) {
+      return -1;
+    } else {
+      // Kann Bezeichnung null sein?
+      int vergleichBezeichnungen = this.bezeichnung.compareTo(pOther.getBezeichnung());
+
+      if (vergleichBezeichnungen != 0) {
+        return vergleichBezeichnungen;
+      }
+      return this.preis.compareTo(pOther.getPreis());
+    }
   }
 
   @Override
@@ -34,7 +49,7 @@ public abstract class Produkt extends Geschaeftsobjekt implements Comparable<Pro
     this.bezeichnung = bezeichnung;
   }
 
-  public void setPreis(float preis) {
+  public void setPreis(double preis) {
     this.preis = preis;
   }
 
@@ -42,7 +57,7 @@ public abstract class Produkt extends Geschaeftsobjekt implements Comparable<Pro
     return bezeichnung;
   }
 
-  public float getPreis() {
+  public double getPreis() {
     return preis;
   }
 }

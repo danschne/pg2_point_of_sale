@@ -5,7 +5,7 @@ public class Dienstleistung extends Produkt {
   private String einheit;
 
   /* Konstruktoren */
-  public Dienstleistung(int nr, String bezeichnung, float preis, String einheit) {
+  public Dienstleistung(int nr, String bezeichnung, double preis, String einheit) {
     super(nr, bezeichnung, preis);
     this.einheit = einheit;
   }
@@ -18,4 +18,11 @@ public class Dienstleistung extends Produkt {
   public String getEinheit() {
     return einheit;
   }
+
+  /* zum Testen benötigt
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "(" + getBezeichnung() + ", " + getPreis() + ")";
+  }
+  */
 }

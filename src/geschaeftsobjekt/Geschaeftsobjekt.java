@@ -1,6 +1,6 @@
 package geschaeftsobjekt;
 
-public class Geschaeftsobjekt {
+public abstract class Geschaeftsobjekt {
   /* Attribute */
   private int nr;
 

@@ -6,7 +6,7 @@ public class Artikel extends Produkt {
   private int lagerbestand;
 
   /* Konstruktoren */
-  public Artikel(int nr, String bezeichnung, float preis) {
+  public Artikel(int nr, String bezeichnung, double preis) {
     super(nr, bezeichnung, preis);
     kurzbezeichnung = erzeugeKurzbezeichnung(getNr(), getBezeichnung());
   }
@@ -77,7 +77,7 @@ public class Artikel extends Produkt {
 
   public String toString() {
     return (
-        "" + getNr() + ", " + kurzbezeichnung + ", " + getBezeichnung() + ", " + lagerbestand + " auf Lager"
+       "" + getNr() + ", " + kurzbezeichnung + ", " + getBezeichnung() + ", " + lagerbestand + " auf Lager"
     );
   }
 
@@ -93,4 +93,11 @@ public class Artikel extends Produkt {
   public int getLagerbestand() {
     return lagerbestand;
   }
+
+  /* zum Testen benötigt
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "(" + getBezeichnung() + ", " + getPreis() + ")";
+  }
+  */
 }
