@@ -23,21 +23,28 @@ public abstract class Produkt extends Geschaeftsobjekt implements Comparable<Pro
     } else if (!thisIstArtikel && pOtherIstArtikel) {
       return -1;
     } else {
-      // Kann Bezeichnung null sein?
-      int vergleichBezeichnungen = this.bezeichnung.compareTo(pOther.getBezeichnung());
+      if (this.bezeichnung == null) {
+        return -1;
+      } else if (pOther.getBezeichnung() == null) {
+        return 1;
+      } else {
+        int vergleichBezeichnungen = this.bezeichnung.compareTo(pOther.getBezeichnung());
 
-      if (vergleichBezeichnungen != 0) {
-        return vergleichBezeichnungen;
+        if (vergleichBezeichnungen != 0) {
+          return vergleichBezeichnungen;
+        }
+        return this.preis.compareTo(pOther.getPreis());
       }
-      return this.preis.compareTo(pOther.getPreis());
     }
   }
 
   @Override
   public boolean equals(Object obj) {
-    // Verhalten, wenn kein Produkt übergeben wird? Instanzprüfung?
-    Produkt pOther = (Produkt) obj;
+    if (!(obj instanceof Produkt)) {
+      return false;
+    }
 
+    Produkt pOther = (Produkt) obj;
     if (this.getClass().getSimpleName().equals(pOther.getClass().getSimpleName()) &&
         this.getNr() == pOther.getNr()) {
       return true;
