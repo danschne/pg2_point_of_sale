@@ -1,4 +1,4 @@
-import geschaeftsobjekt.Produkt;
+package geschaeftsobjekt;
 
 public class Rechnungsposition {
   /* Attribute */
@@ -19,7 +19,14 @@ public class Rechnungsposition {
     String zeile1 = produkt.getBezeichnung().substring(0,
         (laengeBezeichnung > zeilenlaenge ? zeilenlaenge : laengeBezeichnung));
 
-    String zeile2 = String.format("%4d ", anzahl);
+    String einheit = "";
+    boolean produktIstDienstleistung = produkt instanceof Dienstleistung;
+    if (produktIstDienstleistung) {
+      Dienstleistung d = (Dienstleistung) produkt;
+      einheit = d.getEinheit();
+    }
+    String zeile2 = String.format("%4d %-3.3s x %8.2f = %12.2f", anzahl, einheit, produkt.getPreis(),
+        getPreis());
 
     return zeile1 + "\n" + zeile2;
   }
