@@ -11,7 +11,7 @@ public class Artikel extends Produkt {
     kurzbezeichnung = erzeugeKurzbezeichnung(getNr(), getBezeichnung());
   }
 
-  public Artikel(int nr, String bezeichnung, float preis, int lagerbestand) {
+  public Artikel(int nr, String bezeichnung, double preis, int lagerbestand) {
     this(nr, bezeichnung, preis);
     this.lagerbestand = lagerbestand;
   }
