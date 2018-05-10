@@ -13,8 +13,8 @@ public class TestAddRechnungsposition {
         new Dienstleistung(2, "Fliesen legen", 3.99, "h"));
     System.out.println(r.getRechnungspositionen());
 
-    r.addRechnungsposition(6,
-        new Artikel(2, "Dübel", 3.99, 5));
+    r.addRechnungsposition(4,
+        new Artikel(1, "Schrauben", 3.99, 5));
     System.out.println(r.getRechnungspositionen());
   }
 }

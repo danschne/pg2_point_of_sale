@@ -15,6 +15,12 @@ public class Kunde extends Geschaeftsobjekt {
   }
 
   /* Methoden */
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + ": " + getNr() + "\n" + name + "\n" +
+              strasse + "\n" + ort;
+  }
+
   public void setName(String name) {
     this.name = name;
   }
