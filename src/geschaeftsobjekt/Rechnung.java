@@ -14,7 +14,7 @@ public class Rechnung extends Geschaeftsobjekt {
   public Rechnung() {
     super(zaehlerRechnungen);
     zaehlerRechnungen++;
-    this.rechnungsstatus = Rechnungsstatus.IN_ANHANG;
+    this.rechnungsstatus = Rechnungsstatus.IN_ANLAGE;
   }
 
   public Rechnung(Kunde kunde) {
@@ -24,7 +24,7 @@ public class Rechnung extends Geschaeftsobjekt {
 
   /* Methoden */
   public Rechnungsposition addRechnungsposition(int anzahl, Produkt p) {
-    if (rechnungsstatus != Rechnungsstatus.IN_ANHANG) {
+    if (rechnungsstatus != Rechnungsstatus.IN_ANLAGE) {
       return null;
     }
 
@@ -52,7 +52,7 @@ public class Rechnung extends Geschaeftsobjekt {
   }
 
   public void buchen() {
-    if (rechnungsstatus != Rechnungsstatus.IN_ANHANG) {
+    if (rechnungsstatus != Rechnungsstatus.IN_ANLAGE) {
       return;
     }
 

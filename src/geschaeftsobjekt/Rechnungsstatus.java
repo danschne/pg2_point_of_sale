@@ -1,5 +1,5 @@
 package geschaeftsobjekt;
 
 public enum Rechnungsstatus {
-  IN_ANHANG, GEBUCHT, CANCELLED
+  IN_ANLAGE, GEBUCHT, CANCELLED
 }
