@@ -18,11 +18,4 @@ public class Dienstleistung extends Produkt {
   public String getEinheit() {
     return einheit;
   }
-
-  /* zum Testen benötigt
-  @Override
-  public String toString() {
-    return getClass().getSimpleName() + "(" + getBezeichnung() + ", " + getPreis() + ")";
-  }
-  */
 }

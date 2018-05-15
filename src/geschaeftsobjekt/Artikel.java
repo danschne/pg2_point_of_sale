@@ -93,11 +93,4 @@ public class Artikel extends Produkt {
   public int getLagerbestand() {
     return lagerbestand;
   }
-
-  /* zum Testen benötigt
-  @Override
-  public String toString() {
-    return getClass().getSimpleName() + "(" + getBezeichnung() + ", " + getPreis() + ")";
-  }
-  */
 }
