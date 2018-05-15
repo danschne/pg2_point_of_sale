@@ -30,7 +30,7 @@ public class TestRechnung04{
 		}
 
 		Rechnung r = new Rechnung();
-		assertEquals("Der Status einer Rechnung muss bis zur Verbuchung IN_ERSTELLUNG sein!", Rechnungsstatus.IN_ANLAGE /* müsste IN_ERSTELLUNG sein, gibt kein IN_ANLAGE */, r.getRechnungsstatus());
+		assertEquals("Der Status einer Rechnung muss bis zur Verbuchung IN_ERSTELLUNG sein!", Rechnungsstatus.IN_ANLAGE, r.getRechnungsstatus());
 		r.buchen();
 		assertEquals("Der Status einer Rechnung muss nach Verbuchung GEBUCHT sein!", Rechnungsstatus.GEBUCHT, r.getRechnungsstatus());
 
