@@ -1,5 +1,11 @@
 package geschaeftsobjekt;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.util.LinkedList;
+import java.util.List;
+
 public abstract class Produkt extends Geschaeftsobjekt implements Comparable<Produkt> {
   /* Attribute */
   private String bezeichnung;
@@ -13,6 +19,27 @@ public abstract class Produkt extends Geschaeftsobjekt implements Comparable<Pro
   }
 
   /* Methoden */
+  public static List<Produkt> loadProducts(String SERIALIZATION_PATH) {
+    List<Produkt> produkte = new LinkedList<>();
+
+    try {
+      InputStream ins = new FileInputStream(SERIALIZATION_PATH);
+      ObjectInputStream objin = new ObjectInputStream(ins);
+      int i = objin.readInt();
+      int z = 0;
+      while (z < i) {
+        Produkt p = (Produkt) objin.readObject();
+        produkte.add(p);
+        z++;
+      }
+      objin.close();
+      ins.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return produkte;
+  }
+
   @Override
   public int compareTo(Produkt pOther) {
     boolean thisIstArtikel = this instanceof Artikel;

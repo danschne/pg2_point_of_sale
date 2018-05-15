@@ -1,6 +1,8 @@
 package geschaeftsobjekt;
 
-public abstract class Geschaeftsobjekt {
+import java.io.Serializable;
+
+public abstract class Geschaeftsobjekt implements Serializable {
   /* Attribute */
   private int nr;
 
