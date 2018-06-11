@@ -1,6 +1,7 @@
 package geschaeftsobjekt;
 
 public class Dienstleistung extends Produkt {
+
   /* Attribute */
   private String einheit;
 
@@ -18,4 +19,5 @@ public class Dienstleistung extends Produkt {
   public String getEinheit() {
     return einheit;
   }
+
 }

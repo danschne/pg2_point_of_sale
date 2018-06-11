@@ -1,6 +1,9 @@
 package geschaeftsobjekt;
 
+import exception.OutOfStockException;
+
 public class Artikel extends Produkt {
+
   /* Attribute */
   private String kurzbezeichnung;
   private int lagerbestand;
@@ -69,9 +72,11 @@ public class Artikel extends Produkt {
     this.lagerbestand += lagerbestand;
   }
 
-  public void auslagern(int lagerbestand) {
+  public void auslagern(int lagerbestand) throws OutOfStockException {
     if (this.lagerbestand - lagerbestand >= 0) {
       this.lagerbestand -= lagerbestand;
+    } else {
+      throw new OutOfStockException("Lagerbestand nicht ausreichend", this);
     }
   }
 
@@ -93,4 +98,5 @@ public class Artikel extends Produkt {
   public int getLagerbestand() {
     return lagerbestand;
   }
+
 }

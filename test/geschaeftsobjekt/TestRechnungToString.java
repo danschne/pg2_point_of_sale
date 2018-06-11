@@ -1,6 +1,7 @@
 package geschaeftsobjekt;
 
 public class TestRechnungToString {
+
   public static void main(String[] args) {
     Kunde k = new Kunde(42, "Max Muster", "Galgenbergstr. 32", "93053 Regensburg");
     Rechnung re = new Rechnung(k);
@@ -29,4 +30,5 @@ public class TestRechnungToString {
     System.out.println(re1);
     System.out.println("\n" + re2);
   }
+
 }

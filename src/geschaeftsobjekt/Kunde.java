@@ -1,6 +1,7 @@
 package geschaeftsobjekt;
 
 public class Kunde extends Geschaeftsobjekt {
+
   /* Attribute */
   private String name;
   private String strasse;
@@ -44,4 +45,5 @@ public class Kunde extends Geschaeftsobjekt {
   public String getOrt() {
     return ort;
   }
+
 }

@@ -3,8 +3,6 @@ package geschaeftsobjekt;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-import org.junit.Test;
-
 public class Reflections {
 
 	public static boolean containsMethodName(Class c, String name){
@@ -51,4 +49,5 @@ public class Reflections {
 
 		return false;
 	}
+
 }

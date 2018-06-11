@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class TestComparableProdukt {
+
   public static void main(String[] args) {
     List<Produkt> l1 = new ArrayList<>();
     Artikel a1 = new Artikel(1, "Schrauben", 4.95);
@@ -23,4 +24,5 @@ public class TestComparableProdukt {
     Collections.sort(l1);
     System.out.println(l1);
   }
+
 }

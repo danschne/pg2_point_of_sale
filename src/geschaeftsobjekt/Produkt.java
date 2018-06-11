@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Produkt extends Geschaeftsobjekt implements Comparable<Produkt> {
+
   /* Attribute */
   private String bezeichnung;
   private Double preis;
@@ -94,4 +95,5 @@ public abstract class Produkt extends Geschaeftsobjekt implements Comparable<Pro
   public double getPreis() {
     return preis;
   }
+
 }

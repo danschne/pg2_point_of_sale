@@ -3,6 +3,7 @@ package geschaeftsobjekt;
 import java.io.Serializable;
 
 public abstract class Geschaeftsobjekt implements Serializable {
+
   /* Attribute */
   private int nr;
 
@@ -15,4 +16,5 @@ public abstract class Geschaeftsobjekt implements Serializable {
   public int getNr() {
     return nr;
   }
+
 }

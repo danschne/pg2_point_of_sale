@@ -1,6 +1,7 @@
 package geschaeftsobjekt;
 
 public class TestEquals {
+
   public static void main(String[] args) {
     Artikel a1 = new Artikel(1, "Schrauben", 4.5);
     Artikel a2 = new Artikel(1, "Schrauben", 4.5);
@@ -11,4 +12,5 @@ public class TestEquals {
     System.out.println(a2.equals(a3));
     System.out.println(d1.equals(a1));
   }
+
 }

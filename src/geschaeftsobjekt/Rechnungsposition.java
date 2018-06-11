@@ -1,6 +1,7 @@
 package geschaeftsobjekt;
 
 public class Rechnungsposition {
+
   /* Attribute */
   private int anzahl;
   private Produkt produkt;
@@ -46,4 +47,5 @@ public class Rechnungsposition {
   public Produkt getProdukt() {
     return produkt;
   }
+
 }

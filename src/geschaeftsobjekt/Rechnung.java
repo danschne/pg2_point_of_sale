@@ -1,9 +1,13 @@
 package geschaeftsobjekt;
 
+import exception.BookingException;
+import exception.OutOfStockException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Rechnung extends Geschaeftsobjekt {
+
   /* Attribute */
   private static int zaehlerRechnungen = 1;
   private List<Rechnungsposition> rechnungspositionen = new ArrayList<>();
@@ -23,9 +27,10 @@ public class Rechnung extends Geschaeftsobjekt {
   }
 
   /* Methoden */
-  public Rechnungsposition addRechnungsposition(int anzahl, Produkt p) {
+  public Rechnungsposition addRechnungsposition(int anzahl, Produkt p)
+      throws OutOfStockException, BookingException {
     if (rechnungsstatus != Rechnungsstatus.IN_ANLAGE) {
-      return null;
+      throw new BookingException("Rechungsstatus nicht " + Rechnungsstatus.IN_ANLAGE);
     }
 
     Rechnungsposition rp = getRechnungsposition(p);
@@ -35,7 +40,7 @@ public class Rechnung extends Geschaeftsobjekt {
       Artikel a = (Artikel) p;
       int bereitsInRechnung = (rpBereitsVorhanden ? rp.getAnzahl() : 0);
       if (a.getLagerbestand() - bereitsInRechnung - anzahl < 0) {
-        lagerbestandIstAusreichend = false;
+        lagerbestandIstAusreichend = false; // Methode eventuell überarbeiten, wenn leichter mit exception möglich
       }
     }
 
@@ -51,15 +56,19 @@ public class Rechnung extends Geschaeftsobjekt {
     return (rpBereitsVorhanden ? rp : null);
   }
 
-  public void buchen() {
+  public void buchen() throws OutOfStockException, BookingException {
     if (rechnungsstatus != Rechnungsstatus.IN_ANLAGE) {
-      return;
+      throw new BookingException("Rechungsstatus nicht " + Rechnungsstatus.IN_ANLAGE);
     }
 
     for (Rechnungsposition rp : rechnungspositionen) {
       if (rp.getProdukt() instanceof Artikel) {
         Artikel a = (Artikel) rp.getProdukt();
-        a.auslagern(rp.getAnzahl());
+        try {
+          a.auslagern(rp.getAnzahl());
+        } catch (OutOfStockException e) {
+          throw e;
+        }
       }
     }
 
@@ -114,4 +123,5 @@ public class Rechnung extends Geschaeftsobjekt {
   public Rechnungsstatus getRechnungsstatus() {
     return rechnungsstatus;
   }
+
 }
