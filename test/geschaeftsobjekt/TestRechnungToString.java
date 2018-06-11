@@ -1,5 +1,8 @@
 package geschaeftsobjekt;
 
+import exception.BookingException;
+import exception.OutOfStockException;
+
 public class TestRechnungToString {
 
   public static void main(String[] args) {
@@ -12,20 +15,36 @@ public class TestRechnungToString {
     Dienstleistung d1 = new Dienstleistung(123, "Parkettmontage", 75.00, "h");
     Dienstleistung d2 = new Dienstleistung(128, "Montage Sockelleisten", 5.59, "lfdm");
 
-    re.addRechnungsposition(4, a);
-    re.addRechnungsposition(20, d1);
-    re.addRechnungsposition(131, d2);
-    System.out.println(re);
+    try {
+      re.addRechnungsposition(4, a);
+      re.addRechnungsposition(20, d1);
+      re.addRechnungsposition(131, d2);
+      System.out.println(re);
+    } catch (OutOfStockException | BookingException e) {
+      System.out.println(e);
+      e.printStackTrace();
+    }
+
 
 
     Rechnung re1 = new Rechnung();
     Rechnung re2 = new Rechnung();
-    a.auslagern(7);
+    try {
+      a.auslagern(7);
+    } catch (OutOfStockException e) {
+      System.out.println(e);
+      e.printStackTrace();
+    }
 
-    re1.addRechnungsposition(4, a);     // Lagerbestand nicht ausreichend, wird ignorier
-    re1.addRechnungsposition(20, d1);
-    re1.addRechnungsposition(1, d1);
-    re2.addRechnungsposition(3, a);
+    try {
+      re1.addRechnungsposition(4, a);     // Lagerbestand nicht ausreichend
+      re1.addRechnungsposition(20, d1);
+      re1.addRechnungsposition(1, d1);
+      re2.addRechnungsposition(3, a);
+    } catch (OutOfStockException | BookingException e) {
+      System.out.println(e);
+      e.printStackTrace();
+    }
 
     System.out.println(re1);
     System.out.println("\n" + re2);

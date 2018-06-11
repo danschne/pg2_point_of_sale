@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Reflections {
 
-	public static boolean containsMethodName(Class c, String name){
+	public static boolean containsMethodName(Class c, String name) {
 
 		Method[] methods = c.getMethods();
 
@@ -18,7 +18,8 @@ public class Reflections {
 
 	}
 
-	public static Method getMethod(Class<?> c, String name, Class[] types) throws RuntimeException{
+	public static Method getMethod(Class<?> c, String name, Class[] types)
+			throws RuntimeException {
 		Method[] methods = c.getMethods();
 
 		for(Method m : methods){
@@ -33,7 +34,7 @@ public class Reflections {
 		throw new RuntimeException("Methode " + name + " mit gesuchten Parametern nicht gefunden");
 	}
 
-	public static boolean hasSetterForType(Class<?> klasse, Class<?> c){
+	public static boolean hasSetterForType(Class<?> klasse, Class<?> c) {
 
 		Method[] methods = klasse.getMethods();
 

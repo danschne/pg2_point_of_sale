@@ -2,7 +2,6 @@ package geschaeftsobjekt;
 
 import exception.BookingException;
 import exception.OutOfStockException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,26 +33,22 @@ public class Rechnung extends Geschaeftsobjekt {
     }
 
     Rechnungsposition rp = getRechnungsposition(p);
-    boolean rpBereitsVorhanden = (rp != null ? true : false);
-    boolean lagerbestandIstAusreichend = true;
+    boolean rpBereitsVorhanden = (rp != null);
     if (p instanceof Artikel) {
       Artikel a = (Artikel) p;
       int bereitsInRechnung = (rpBereitsVorhanden ? rp.getAnzahl() : 0);
       if (a.getLagerbestand() - bereitsInRechnung - anzahl < 0) {
-        lagerbestandIstAusreichend = false; // Methode eventuell überarbeiten, wenn leichter mit exception möglich
+        throw new OutOfStockException("Lagerbestand nicht ausreichend", a);
       }
     }
 
-    if (lagerbestandIstAusreichend) {
-      if (rpBereitsVorhanden) {
-        rp.setAnzahl(anzahl + rp.getAnzahl());
-      } else {
-        rp = new Rechnungsposition(anzahl, p);
-        rechnungspositionen.add(rp);
-      }
-      return rp;
+    if (rpBereitsVorhanden) {
+      rp.setAnzahl(anzahl + rp.getAnzahl());
+    } else {
+      rp = new Rechnungsposition(anzahl, p);
+      rechnungspositionen.add(rp);
     }
-    return (rpBereitsVorhanden ? rp : null);
+    return rp;
   }
 
   public void buchen() throws OutOfStockException, BookingException {
