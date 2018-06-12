@@ -2,6 +2,8 @@ package gui;
 
 import exception.*;
 import geschaeftsobjekt.*;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -12,11 +14,25 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class POS {
+public class POS  extends JFrame {
 
 	static final String SERIALIZATION_PATH = "data/Produkt.ser";
 
-	public POS(List<Produkt> produkte, List<Kunde> kunden) {}
+	private JPanel panelWest;
+	private JPanel panelCenter;
+	private JComboBox<Kunde> comboBoxKundenauswahl;
+	private JTextArea textAreaRechnung;
+	private JButton buttonCheckout;
+
+	public POS(List<Produkt> produkte, List<Kunde> kunden) {
+	  super("Point of Sale");
+	  setLayout(new BorderLayout());
+	  setExtendedState(JFrame.MAXIMIZED_BOTH);
+	  initComponents();
+	  pack();
+	  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	  setVisible(true);
+  }
 
   private static List<Produkt> initProducts() {
     List<Produkt> produkte = new LinkedList<>();
@@ -65,5 +81,24 @@ public class POS {
 		kunden.add(new Kunde(2, "Heidi Klum", "Modelwalk 13", "L.A."));
 		new POS(initProducts(), kunden);
 	}
+
+	private void initComponents() {
+	  panelWest = new JPanel(new BorderLayout());
+	  add(panelWest, BorderLayout.WEST);
+
+	  panelCenter = new JPanel();
+	  add(panelCenter, BorderLayout.CENTER);
+
+	  comboBoxKundenauswahl = new JComboBox<>();
+	  panelWest.add(comboBoxKundenauswahl, BorderLayout.NORTH);
+
+	  textAreaRechnung = new JTextArea();
+	  textAreaRechnung.setPreferredSize(new Dimension(300, 600));
+	  textAreaRechnung.setFont(new Font("Courier New", Font.BOLD, 14));
+	  panelWest.add(textAreaRechnung, BorderLayout.CENTER);
+
+	  buttonCheckout = new JButton("CHECKOUT");
+	  panelWest.add(buttonCheckout, BorderLayout.SOUTH);
+  }
 
 }
