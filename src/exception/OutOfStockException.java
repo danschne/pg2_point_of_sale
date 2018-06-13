@@ -8,7 +8,7 @@ public class OutOfStockException extends Exception {
   private Produkt produkt;
 
   /* Konstruktoren */
-  public OutOfStockException(String fehlermeldung, Produkt produkt) {
+  public OutOfStockException(Produkt produkt, String fehlermeldung) {
     super(fehlermeldung);
     this.produkt = produkt;
   }

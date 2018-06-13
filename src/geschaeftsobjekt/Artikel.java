@@ -76,7 +76,7 @@ public class Artikel extends Produkt {
     if (this.lagerbestand - lagerbestand >= 0) {
       this.lagerbestand -= lagerbestand;
     } else {
-      throw new OutOfStockException("Lagerbestand nicht ausreichend", this);
+      throw new OutOfStockException(this, "Lagerbestand nicht ausreichend");
     }
   }
 

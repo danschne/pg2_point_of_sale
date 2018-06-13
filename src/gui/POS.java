@@ -2,7 +2,6 @@ package gui;
 
 import exception.*;
 import geschaeftsobjekt.*;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,18 +13,25 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class POS  extends JFrame {
+public class POS extends JFrame {
 
+  /* Attribute */
 	static final String SERIALIZATION_PATH = "data/Produkt.ser";
+  private List<Kunde> kunden;
+	private List<Produkt> produkte;
+  private Rechnung rechnung;
+  private JPanel panelWest;
+  private JPanel panelCenter;
+  private JComboBox<Kunde> kundenComboBox;
+  private JTextArea textFeld;
+	private JButton checkoutButton;
+	private ProduktButton[] produktButtons;
 
-	private JPanel panelWest;
-	private JPanel panelCenter;
-	private JComboBox<Kunde> comboBoxKundenauswahl;
-	private JTextArea textAreaRechnung;
-	private JButton buttonCheckout;
-
+	/* Konstruktoren */
 	public POS(List<Produkt> produkte, List<Kunde> kunden) {
 	  super("Point of Sale");
+	  this.produkte = produkte;
+	  this.kunden = kunden;
 	  setLayout(new BorderLayout());
 	  setExtendedState(JFrame.MAXIMIZED_BOTH);
 	  initComponents();
@@ -34,6 +40,7 @@ public class POS  extends JFrame {
 	  setVisible(true);
   }
 
+  /* Methoden */
   private static List<Produkt> initProducts() {
     List<Produkt> produkte = new LinkedList<>();
     Artikel p1 = new Artikel(12345, "Arbeitsplatte", 89.90);
@@ -89,16 +96,44 @@ public class POS  extends JFrame {
 	  panelCenter = new JPanel();
 	  add(panelCenter, BorderLayout.CENTER);
 
-	  comboBoxKundenauswahl = new JComboBox<>();
-	  panelWest.add(comboBoxKundenauswahl, BorderLayout.NORTH);
+	  kundenComboBox = new JComboBox<>();
+	  panelWest.add(kundenComboBox, BorderLayout.NORTH);
 
-	  textAreaRechnung = new JTextArea();
-	  textAreaRechnung.setPreferredSize(new Dimension(300, 600));
-	  textAreaRechnung.setFont(new Font("Courier New", Font.BOLD, 14));
-	  panelWest.add(textAreaRechnung, BorderLayout.CENTER);
+	  textFeld = new JTextArea();
+	  textFeld.setPreferredSize(new Dimension(300, 600));
+	  textFeld.setFont(new Font("Courier New", Font.BOLD, 14));
+	  panelWest.add(textFeld, BorderLayout.CENTER);
 
-	  buttonCheckout = new JButton("CHECKOUT");
-	  panelWest.add(buttonCheckout, BorderLayout.SOUTH);
+	  checkoutButton = new JButton("CHECKOUT");
+	  panelWest.add(checkoutButton, BorderLayout.SOUTH);
+  }
+
+  public List<Kunde> getKunden() {
+    return kunden;
+  }
+
+  public List<Produkt> getProdukte() {
+    return produkte;
+  }
+
+  public Rechnung getRechnung() {
+    return rechnung;
+  }
+
+  public JComboBox<Kunde> getKundenComboBox() {
+    return kundenComboBox;
+  }
+
+  public JTextArea getTextFeld() {
+    return textFeld;
+  }
+
+  public JButton getCheckoutButton() {
+    return checkoutButton;
+  }
+
+  public ProduktButton[] getProduktButtons() {
+    return produktButtons;
   }
 
 }

@@ -38,7 +38,7 @@ public class Rechnung extends Geschaeftsobjekt {
       Artikel a = (Artikel) p;
       int bereitsInRechnung = (rpBereitsVorhanden ? rp.getAnzahl() : 0);
       if (a.getLagerbestand() - bereitsInRechnung - anzahl < 0) {
-        throw new OutOfStockException("Lagerbestand nicht ausreichend", a);
+        throw new OutOfStockException(a, "Lagerbestand nicht ausreichend");
       }
     }
 
