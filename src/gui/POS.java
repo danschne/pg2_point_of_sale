@@ -1,10 +1,13 @@
 package gui;
 
+import exception.BookingException;
+import exception.OutOfStockException;
 import geschaeftsobjekt.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.*;
@@ -25,6 +28,7 @@ public class POS extends JFrame implements ActionListener {
 	public POS(List<Produkt> produkte, List<Kunde> kunden) {
 	  super("Point of Sale");
 	  this.produkte = produkte;
+	  Collections.sort(this.produkte);
 	  this.kunden = kunden;
 	  setLayout(new BorderLayout());
 	  setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -100,15 +104,17 @@ public class POS extends JFrame implements ActionListener {
 
 	  textFeld = new JTextArea();
 	  textFeld.setPreferredSize(new Dimension(300, 600));
-	  textFeld.setFont(new Font("Courier New", Font.BOLD, 14));
+    textFeld.setFont(new Font("Courier New", Font.BOLD, 14));
 	  panelWest.add(textFeld, BorderLayout.CENTER);
 
 	  checkoutButton = new JButton("CHECKOUT");
+	  checkoutButton.addActionListener(this);
 	  panelWest.add(checkoutButton, BorderLayout.SOUTH);
 
 	  produktButtons = new ProduktButton[produkte.size()];
 	  for (int i = 0; i < produkte.size(); i++) {
 	    ProduktButton pB = new ProduktButton(produkte.get(i));
+	    pB.addActionListener(this);
 	    produktButtons[i] = pB;
 	    panelCenter.add(pB);
     }
@@ -162,12 +168,37 @@ public class POS extends JFrame implements ActionListener {
 
     /* checkoutButton */
     else if (source == checkoutButton) {
-
+      try {
+        rechnung.buchen();
+      } catch (OutOfStockException | BookingException ex) {
+        ex.printStackTrace();
+      } finally {
+        aktiviereKundenauswahl();
+      }
     }
 
     /* produktButtons */
     else {
-
+      ProduktButton clickedButton = (ProduktButton) source;
+      for (ProduktButton pB : produktButtons) {
+        if (pB == clickedButton) {
+          try {
+            rechnung.addRechnungsposition(1, pB.getProdukt());
+          } catch (OutOfStockException | BookingException ex) {
+            ex.printStackTrace();
+          } finally {
+            textFeld.setText(rechnung.toString());
+            if (pB.getProdukt() instanceof Artikel) {
+              Rechnungsposition rP = rechnung.getRechnungsposition(pB.getProdukt());
+              Artikel a = (Artikel) pB.getProdukt();
+              if (a.getLagerbestand() - rP.getAnzahl() <= 0) {
+                clickedButton.setEnabled(false);
+              }
+            }
+          }
+          break;
+        }
+      }
     }
   }
 

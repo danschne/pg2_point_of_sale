@@ -37,7 +37,7 @@ public class TestRechnungToString {
     }
 
     try {
-      re1.addRechnungsposition(4, a);     // Lagerbestand nicht ausreichend
+      //re1.addRechnungsposition(4, a);     // Lagerbestand nicht ausreichend
       re1.addRechnungsposition(20, d1);
       re1.addRechnungsposition(1, d1);
       re2.addRechnungsposition(3, a);
