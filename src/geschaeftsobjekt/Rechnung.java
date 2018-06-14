@@ -72,8 +72,13 @@ public class Rechnung extends Geschaeftsobjekt {
 
   @Override
   public String toString() {
+    /* return ; */
     String ausgabe = getClass().getSimpleName() + ": " + getNr() + "\n";
-    ausgabe += (kunde != null ? kunde : "Barverkauf") + "\n";
+    ausgabe += (kunde != null ?
+               (kunde.getClass().getSimpleName() + ": " + kunde.getNr() + "\n" + kunde.getName() + "\n" +
+                   kunde.getStrasse() + "\n" + kunde.getOrt()) :
+               "Barverkauf") +
+               "\n";
 
     for (Rechnungsposition rp : rechnungspositionen) {
       ausgabe += "\n" + rp;

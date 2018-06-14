@@ -1,27 +1,21 @@
 package gui;
 
-import exception.*;
 import geschaeftsobjekt.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
-public class POS extends JFrame {
+public class POS extends JFrame implements ActionListener {
 
   /* Attribute */
 	static final String SERIALIZATION_PATH = "data/Produkt.ser";
   private List<Kunde> kunden;
 	private List<Produkt> produkte;
   private Rechnung rechnung;
-  private JPanel panelWest;
-  private JPanel panelCenter;
   private JComboBox<Kunde> kundenComboBox;
   private JTextArea textFeld;
 	private JButton checkoutButton;
@@ -37,6 +31,7 @@ public class POS extends JFrame {
 	  initComponents();
 	  pack();
 	  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	  aktiviereKundenauswahl();
 	  setVisible(true);
   }
 
@@ -90,13 +85,17 @@ public class POS extends JFrame {
 	}
 
 	private void initComponents() {
-	  panelWest = new JPanel(new BorderLayout());
+    JPanel panelWest = new JPanel(new BorderLayout());
 	  add(panelWest, BorderLayout.WEST);
 
-	  panelCenter = new JPanel();
+    JPanel panelCenter = new JPanel();
 	  add(panelCenter, BorderLayout.CENTER);
 
 	  kundenComboBox = new JComboBox<>();
+	  for (Kunde k : kunden) {
+	    kundenComboBox.addItem(k);
+    }
+    kundenComboBox.addActionListener(this);
 	  panelWest.add(kundenComboBox, BorderLayout.NORTH);
 
 	  textFeld = new JTextArea();
@@ -106,6 +105,70 @@ public class POS extends JFrame {
 
 	  checkoutButton = new JButton("CHECKOUT");
 	  panelWest.add(checkoutButton, BorderLayout.SOUTH);
+
+	  produktButtons = new ProduktButton[produkte.size()];
+	  for (int i = 0; i < produkte.size(); i++) {
+	    ProduktButton pB = new ProduktButton(produkte.get(i));
+	    produktButtons[i] = pB;
+	    panelCenter.add(pB);
+    }
+  }
+
+  private void aktiviereKundenauswahl() {
+    kundenComboBox.setEnabled(true);
+    kundenComboBox.setSelectedIndex(0);
+    textFeld.setText("");
+    checkoutButton.setEnabled(false);
+    for (ProduktButton pB : produktButtons) {
+      pB.setEnabled(false);
+    }
+  }
+
+  private void aktiviereProduktauswahl() {
+    kundenComboBox.setEnabled(false);
+    textFeld.setText(rechnung.toString());
+    checkoutButton.setEnabled(true);
+    for (ProduktButton pB : produktButtons) {
+      if (pB.getProdukt() instanceof Artikel) {
+        Artikel a = (Artikel) pB.getProdukt();
+        if (a.getLagerbestand() <= 0) {
+          continue;
+        }
+      }
+      pB.setEnabled(true);
+    }
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    Object source = e.getSource();
+
+    /* kundenComboBox */
+    if (source == kundenComboBox) {
+      Kunde selectedItem = (Kunde) kundenComboBox.getSelectedItem();
+      for (int i = 1; i < kunden.size(); i++) {
+        Kunde k = kunden.get(i);
+        if (selectedItem == k) {
+          if (i != 1) {
+            rechnung = new Rechnung(k);
+          } else {
+            rechnung = new Rechnung();
+          }
+          aktiviereProduktauswahl();
+          break;
+        }
+      }
+    }
+
+    /* checkoutButton */
+    else if (source == checkoutButton) {
+
+    }
+
+    /* produktButtons */
+    else {
+
+    }
   }
 
   public List<Kunde> getKunden() {
