@@ -59,11 +59,7 @@ public class Rechnung extends Geschaeftsobjekt {
     for (Rechnungsposition rp : rechnungspositionen) {
       if (rp.getProdukt() instanceof Artikel) {
         Artikel a = (Artikel) rp.getProdukt();
-        try {
-          a.auslagern(rp.getAnzahl());
-        } catch (OutOfStockException e) {
-          throw e;
-        }
+        a.auslagern(rp.getAnzahl());
       }
     }
 
