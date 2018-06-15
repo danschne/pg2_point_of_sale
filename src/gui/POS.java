@@ -103,6 +103,7 @@ public class POS extends JFrame implements ActionListener {
 	  panelWest.add(kundenComboBox, BorderLayout.NORTH);
 
 	  textFeld = new JTextArea();
+	  textFeld.setEditable(false);
 	  textFeld.setPreferredSize(new Dimension(300, 600));
     textFeld.setFont(new Font("Courier New", Font.BOLD, 14));
 	  panelWest.add(textFeld, BorderLayout.CENTER);

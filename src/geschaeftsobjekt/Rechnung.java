@@ -8,7 +8,7 @@ import java.util.List;
 public class Rechnung extends Geschaeftsobjekt {
 
   /* Attribute */
-  private static int zaehlerRechnungen = 3; // eigentlich ist 1 der Initialwert (Testfehler)
+  private static int zaehlerRechnungen = 1;
   private List<Rechnungsposition> rechnungspositionen = new ArrayList<>();
   private Kunde kunde;
   private Rechnungsstatus rechnungsstatus;
